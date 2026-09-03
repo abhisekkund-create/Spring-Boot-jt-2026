@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -76,15 +79,38 @@ public class ExpenseController {
     }
 
 
+
+    //create a  new expenses
     //@RequestBody-convert json to java object because @RestController conntain 2 annotation like @Controller,@ResponseBody
 
-    @RequestMapping(value = "/expenses",method =RequestMethod.POST )
+    // @RequestMapping(value = "/expenses",method =RequestMethod.POST )
+       @PostMapping("/expenses")
     public Expense createExpense(@RequestBody Expense expense){
         var sql="insert into %s (title,category,price,date) values(?,?,?,?)"
         .formatted(EXPENSES_TABEL);
         jdbcTemplate.update(sql,expense.getTitle(),expense.getCategory(),expense.getPrice(),
         expense.getDate() );
         return expense;
+    }
+
+
+// @RequestMapping(value = "/expenses/{id}",method=RequestMethod.DELETE)
+@DeleteMapping("/expenses/{id}")
+    public void deleteExpenses(@PathVariable int id){
+        String sql ="DELETE FROM %s WHERE id=?".formatted(EXPENSES_TABEL);
+        jdbcTemplate.update(sql,id);
+    }
+
+    //fully changed
+    @PutMapping("/expenses/{id}")
+    public Expense updateExpense(@RequestBody Expense expense){
+        var sql="update %s set title=? ,category=?, price=?, date=? where id=?"
+        .formatted(EXPENSES_TABEL);
+        jdbcTemplate.update(sql, expense.getTitle(),expense.getCategory(),
+        expense.getPrice(),expense.getDate(),expense.getId());
+        return getExpenseById(expense.getId());
+
+
     }
     
 }
