@@ -5,6 +5,7 @@ import java.util.List;
 // import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 // import org.springframework.jdbc.core.BeanPropertyRowMapper;
 // import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +24,7 @@ import lombok.AllArgsConstructor;
 @RestController
 
 @AllArgsConstructor
+@CrossOrigin ("http://localhost:5173")
 
 public class ExpenseController {
    
