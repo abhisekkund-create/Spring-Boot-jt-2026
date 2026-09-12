@@ -3,7 +3,30 @@ import ExpenseList from "./components/ExpenseList"
 import Footer from "./components/Footer"
 import Header from "./components/header"
 import Summary from "./components/Summary"
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+
 export default function App(){
+  const[expenses, setExpenses]=useState([])
+   
+     const getExpense=async ()=>{
+        try{
+ const response= await axios.get("http://localhost:1200/expenses")
+ setExpenses(response.data)
+        console.log("data is",response.data);
+        setExpenses(response.data)
+
+        }catch(err){
+            console.log("Error is",err);
+            
+        }
+       
+        
+     }
+
+       useEffect(()=>{
+        getExpense()
+     },[])
 
 
   return(
@@ -13,8 +36,8 @@ export default function App(){
     <Header/>
     <main className="max-w-4xl mx-auto  py-4  mt-4" >
       <ExpenseForm/>
-      <Summary/>
-      <ExpenseList/>
+      <Summary expenses={expenses}/>
+      <ExpenseList expenses={expenses}/>
     </main>
     {/* footer */}
     <Footer/>
