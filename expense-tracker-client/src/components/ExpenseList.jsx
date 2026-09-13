@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-export const ExpenseList = ({expenses}) => {
+const ExpenseList = ({expenses,getExpenses}) => {
     
 
 
@@ -10,7 +10,7 @@ export const ExpenseList = ({expenses}) => {
               try{
             const response= await axios.delete('http://localhost:1200/expenses/'+expenseId)
             if(response.status === 204){
-                getExpense();
+             getExpenses()  
             }else{
                 alert("Something went wrong please contacct Admin")
             }

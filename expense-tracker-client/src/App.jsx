@@ -9,7 +9,7 @@ import axios from 'axios'
 export default function App(){
   const[expenses, setExpenses]=useState([])
    
-     const getExpense=async ()=>{
+     const getExpenses=async ()=>{
         try{
  const response= await axios.get("http://localhost:1200/expenses")
  setExpenses(response.data)
@@ -25,7 +25,7 @@ export default function App(){
      }
 
        useEffect(()=>{
-        getExpense()
+        getExpenses()
      },[])
 
 
@@ -35,9 +35,9 @@ export default function App(){
 
     <Header/>
     <main className="max-w-4xl mx-auto  py-4  mt-4" >
-      <ExpenseForm/>
+      <ExpenseForm getExpenses={getExpenses}/>
       <Summary expenses={expenses}/>
-      <ExpenseList expenses={expenses}/>
+      <ExpenseList expenses={expenses} getExpenses={getExpenses}/>
     </main>
     {/* footer */}
     <Footer/>

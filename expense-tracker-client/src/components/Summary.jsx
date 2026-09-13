@@ -17,7 +17,7 @@ const Summary = ({expenses}) => {
     <div className='text-3xl'>💰</div>
     <div>
   <p className=' font-medium text-gray-500 text-sm'>Total Expenses</p>
-          <p className='text-2xl text-blue-600 font-bold'>{totalExpense}</p>
+          <p className='text-2xl text-blue-600 font-bold'>{totalExpense.toFixed(2)}</p>
     </div>
         
         </div>
@@ -34,7 +34,7 @@ const Summary = ({expenses}) => {
          
         </div>
 </div>
-{/* Total expense */}
+
       
 
 
