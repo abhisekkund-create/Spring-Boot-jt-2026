@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 // import org.springframework.jdbc.core.BeanPropertyRowMapper;
 // import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +26,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @CrossOrigin ("http://localhost:5173")
+@RequestMapping ("/expenses")
 
 public class ExpenseController {
    
@@ -34,8 +36,8 @@ public class ExpenseController {
     
 
 
-    @RequestMapping(value="/expenses", method= RequestMethod.GET)
-
+   
+@GetMapping 
     public List<Expense> getExpenses(){
         //  String sql="select * from %s".formatted(EXPENSES_TABEL);
        
@@ -49,7 +51,7 @@ public class ExpenseController {
 
    
 
-    @RequestMapping(value = "/expenses/{id}", method =RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method =RequestMethod.GET)
     public Expense getExpenseById(@PathVariable int id){
 
    //findById(id) return optional class object
@@ -68,7 +70,7 @@ public class ExpenseController {
 
 
    
-       @PostMapping("/expenses")
+       @PostMapping
        @ResponseStatus (code = HttpStatus.CREATED)
     public Expense createExpense(@RequestBody Expense expense){
     //   return  expenseRepository.save(expense);
@@ -77,7 +79,7 @@ public class ExpenseController {
 
 
 
-@DeleteMapping("/expenses/{id}")
+@DeleteMapping("/{id}")
 @ResponseStatus (value = HttpStatus.NO_CONTENT)//it create a status code
     public void deleteExpenses(@PathVariable int id){
 
@@ -93,7 +95,7 @@ public class ExpenseController {
 
     
     //partially update 
-    @PutMapping("/expenses")
+    @PutMapping
     @ResponseStatus (HttpStatus.ACCEPTED)
     public Expense updateExpense(@RequestBody Expense expense){
         
