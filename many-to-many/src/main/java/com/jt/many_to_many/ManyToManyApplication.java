@@ -21,10 +21,10 @@ public class ManyToManyApplication {
 
 
 	@Bean
-	public CommandLineRunner commandLineRunner(){
+	public CommandLineRunner commandLineRunner() {
 		return args -> {
 
-//			oneWayBinding();
+			oneWayBinding();
 
 
 			//save
@@ -43,66 +43,77 @@ public class ManyToManyApplication {
 
 
 //			studentRepository.saveAll(List.of(student1,student2,student3));
-			subjectRepository.saveAll(List.of(subject1,subject2,subject3));
+//			subjectRepository.saveAll(List.of(subject1,subject2,subject3));
 
 
 			//extract
-			subjectRepository.findAll().forEach(subject -> {
-				subject.getStudents().forEach(student -> {
-					System.out.println(subject.getSubjectName()+"\t->\t"+student.getStudentName());
-				});
-			});
+//			subjectRepository.findAll().forEach(subject -> {
+//				subject.getStudents().forEach(student -> {
+//					System.out.println(subject.getSubjectName()+"\t->\t"+student.getStudentName());
+//				});
+//			});
 
 
 		};
 	}
 
 
-	private void oneWayBinding(){
+			private void oneWayBinding () {
 
-		//save
-		Subject subject1=Subject.builder().SubjectName("c").build();
-		Subject subject2=Subject.builder().SubjectName("java").build();
-		Subject subject3=Subject.builder().SubjectName("python").build();
-		Subject subject4=Subject.builder().SubjectName(".net").build();
-
-
-		Student student1=Student.builder()
-				.StudentName("Abhishek")
-				.StudentEmail("abhishekkunduel@gmail.com")
-				.Subjects(List.of(subject2,subject3))
-				.build();
-
-		Student student2=Student.builder()
-				.StudentName("Rohan")
-				.StudentEmail("rohan@gmail.com")
-				.Subjects(List.of(subject2,subject3))
-				.build();
+				//save
+				Subject subject1 = Subject.builder().SubjectName("c").build();
+				Subject subject2 = Subject.builder().SubjectName("java").build();
+				Subject subject3 = Subject.builder().SubjectName("python").build();
+				Subject subject4 = Subject.builder().SubjectName(".net").build();
 
 
-		Student student3=Student.builder()
-				.StudentName("Rakesh")
-				.StudentEmail("rakesh@gmail.com")
-				.Subjects(List.of(subject3,subject4))
-				.build();
+				Student student1 = Student.builder()
+						.StudentName("Abhishek")
+						.StudentEmail("abhishekkunduel@gmail.com")
+						.Subjects(List.of(subject2, subject3))
+						.build();
+
+				Student student2 = Student.builder()
+						.StudentName("Rohan")
+						.StudentEmail("rohan@gmail.com")
+						.Subjects(List.of(subject2, subject3))
+						.build();
+
+
+				Student student3 = Student.builder()
+						.StudentName("Rakesh")
+						.StudentEmail("rakesh@gmail.com")
+						.Subjects(List.of(subject3, subject4))
+						.build();
 //		studentRepository.saveAll(List.of(student1,student2,student3));
 
-		//update
+				//update
+				Subject updateSubject = subjectRepository.findById(2).orElseThrow();
+				updateSubject.setSubjectName("AdvancedPython");
 
-		//delete
-
-		//Extract
-		studentRepository.findAll().forEach(student -> {
-			System.out.println("student name is"+student.getStudentName());
-			student.getSubjects().forEach(subject -> {
-				System.out.println(student.getStudentName()+"\t->\t"+subject.getSubjectName());
-			});
-		});
-
-
-
-	}
+				updateSubject.getStudents().forEach(student -> {
+					if(student.getStudentId()==1){
+						student.setStudentName("ms Dhoni");
+						student.setStudentEmail("ms@gmail.com");
+					}
+				});
+				subjectRepository.save(updateSubject);
 
 
 
-}
+				//delete
+
+				//Extract
+				studentRepository.findAll().forEach(student -> {
+					System.out.println("student name is" + student.getStudentName());
+					student.getSubjects().forEach(subject -> {
+						System.out.println(student.getStudentName() + "\t->\t" + subject.getSubjectName());
+					});
+				});
+
+
+			}
+
+
+		}
+
